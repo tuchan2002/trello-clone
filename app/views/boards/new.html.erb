@@ -1,0 +1,19 @@
+<%= form_with model: @board, local: true do |f| %>
+  <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
+    <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
+      <h1 class="text-center text-2xl font-bold mb-10">New Board</h1>
+      <div class="space-y-4">
+          <div class="field">
+            <%= f.label :name, class: "block mt-3 font-semibold" %>
+            <%= f.text_field :name, class: "border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md" %>
+          </div>
+
+          <div class="flex items-center justify-end gap-4">
+            <%= link_to "Cancel", root_path, class: "custom-link" %>
+            <%= f.submit "Create", class: "bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-purple-600 cursor-pointer" %>
+          </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+  
