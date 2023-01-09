@@ -30,7 +30,7 @@ gem "tailwindcss-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 gem "devise"
-
+gem 'pundit', '~> 2.3'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
@@ -68,3 +68,5 @@ group :development do
   # gem "spring"
 end
 
+
+gem "pundit", "~> 2.3"

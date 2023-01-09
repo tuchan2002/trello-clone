@@ -1,0 +1,15 @@
+<div class="container mx-auto p-6">
+  <ul class="grid grid-cols-3 gap-4">
+    <% @boards.each do |board| %>
+      <li class="flex flex-col gap-3 p-3 bg-white border border-gray-200 rounded-lg shadow-md">
+        <h3 class="font-medium">
+          <%= link_to board.name, board_path(board) %>
+        </h3>
+        <div class="flex items-center justify-between"> 
+          <%= link_to "Edit", edit_board_path(board) , class: "font-medium text-center text-blue-700 hover:text-blue-500" %>
+          <%= button_to "Delete", board_path(board), method: :delete , class: "font-medium text-center text-red-700 hover:text-red-500" %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
