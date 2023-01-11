@@ -3,13 +3,15 @@ class Api::ListPositionsController < ApplicationController
   protect_from_forgery with: :null_session
 
   def update
-    lists = board.lists.to_a
+    lists = board.lists.order(position: :asc).to_a
     delete_index = lists.index { |list| list.id == params[:id].to_i }
     list = lists.delete_at(delete_index)
     lists.insert(params[:position].to_i, list)
     lists.each_with_index do |list, index|
-      list.update(position: index)
+      list.position = index
     end
+
+    List.import lists,  on_duplicate_key_update: [:position]
 
     render json: ListsRepresenter.new(lists).as_json
   end

@@ -31,6 +31,7 @@ gem "tailwindcss-rails"
 gem "jbuilder"
 gem "devise"
 gem 'pundit', '~> 2.3'
+gem 'activerecord-import'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
