@@ -7,5 +7,14 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "dashboard#index"
 
-  resources :boards, only: [:show, :new, :edit, :create, :update, :destroy]
+  resources :boards do
+    resources :lists
+  end
+
+  namespace :api do
+    resources :boards do
+      resources :lists, only: [:index], controller: "lists"
+      resources :list_positions, only: [:index, :update], controller: "list_positions"
+    end
+  end
 end

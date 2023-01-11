@@ -1,16 +1,16 @@
-<%= form_with model: board, local: true do |f| %>
+<%= form_with model: [board, list], local: true do |f| %>
   <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
     <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
-      <% if board.new_record? %>
-        <h1 class="text-center text-2xl font-bold mb-10">New Board</h1>
+      <% if list.new_record? %>
+        <h1 class="text-center text-2xl font-bold mb-10">New List</h1>
       <% else %>
-        <h1 class="text-center text-2xl font-bold mb-10">Edit Board</h1>
+        <h1 class="text-center text-2xl font-bold mb-10">Edit List <%= list.title %></h1>
       <% end %>
 
       <div class="space-y-4">
           <div class="field">
-            <%= f.label :name, class: "block mt-3 font-semibold" %>
-            <%= f.text_field :name, class: "border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md" %>
+            <%= f.label :title, class: "block mt-3 font-semibold" %>
+            <%= f.text_field :title, class: "border w-full h-5 px-3 py-5 mt-2 hover:outline-none focus:outline-none focus:ring-indigo-500 focus:ring-1 rounded-md" %>
           </div>
 
           <div class="flex items-center justify-end gap-5">

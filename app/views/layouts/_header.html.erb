@@ -4,8 +4,13 @@
       
       <ul class="flex items-center gap-5">
         <% if user_signed_in? %>
+          <% if controller_name == "boards" && action_name == "show" %>
+            <%= link_to "New List", new_board_list_path(@board), class: "custom-link" %>
+          <% else %>
+            <%= link_to "New Board", new_board_path, class: "custom-link" %>
+          <% end %>
+
           <%= link_to "Dashboard", root_path, class: "custom-link" %>
-          <%= link_to "New Board", new_board_path, class: "custom-link" %>
           <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "custom-link" %>
         <% else %>
           <%= link_to "Register", new_user_registration_path, class: "custom-link" %>
