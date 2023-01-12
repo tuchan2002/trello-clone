@@ -1,3 +1,13 @@
 <div class="container mx-auto p-6">
-  <div data-controller="board" id="board" class="overflow-x-scroll" data-api-url="<%= api_board_lists_path(@board) %>" data-list-positions-api-url="<%= api_board_list_positions_path(@board) %>" data-board-lists-url="<%= board_lists_path(@board) %>"></div>
+  <div 
+    data-controller="board" 
+    id="board" class="overflow-x-scroll" 
+    data-api-url="<%= api_board_lists_path(@board) %>" 
+    data-list-positions-api-url="<%= api_board_list_positions_path(@board) %>" 
+    data-board-lists-url="<%= board_lists_path(@board) %>"
+    data-item-positions-api-url="<%= api_item_positions_path %>"
+  >
+  </div>
 </div>
+
+<%= render "shared/modal" %>

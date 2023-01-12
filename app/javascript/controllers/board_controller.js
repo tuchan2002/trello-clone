@@ -37,6 +37,47 @@ export default class extends Controller {
       });
   }
 
+  updateItemPosition(target, source) {
+    const targetItems = [...target.querySelectorAll(".kanban-item")];
+    const sourceItems = [...source.querySelectorAll(".kanban-item")];
+
+    targetItems.forEach((targetItem, index) => {
+      targetItem.dataset.position = index;
+      targetItem.dataset.listId = target.closest(".kanban-board").dataset.id;
+    });
+    sourceItems.forEach((sourceItem, index) => {
+      sourceItem.dataset.position = index;
+      sourceItem.dataset.listId = source.closest(".kanban-board").dataset.id;
+    });
+
+    const targetItemsData = targetItems.map((targetItem) => ({
+      id: targetItem.dataset.eid,
+      position: targetItem.dataset.position,
+      list_id: targetItem.dataset.listId,
+    }));
+    const sourceItemsData = sourceItems.map((targetItem) => ({
+      id: targetItem.dataset.eid,
+      position: targetItem.dataset.position,
+      list_id: targetItem.dataset.listId,
+    }));
+
+    axios
+      .put(`${this.element.dataset.itemPositionsApiUrl}`, {
+        items: targetItemsData,
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+
+    axios
+      .put(`${this.element.dataset.itemPositionsApiUrl}`, {
+        items: sourceItemsData,
+      })
+      .then((response) => {
+        console.log(response.data);
+      });
+  }
+
   buildKanban(boards) {
     new jKanban({
       element: `#${this.element.id}`,
@@ -44,19 +85,11 @@ export default class extends Controller {
       itemAddOptions: {
         enabled: true,
       },
+      click: (e) => {
+        document.querySelector("#modal-wrapper").classList.remove("hidden");
+      },
       dropEl: (el, target, source, sibling) => {
-        console.log("dropEl", el);
-        console.log("target", target);
-        console.log("source", source);
-        console.log("sibling", sibling);
-
-        const targetItems = target.querySelectorAll(".kanban-item");
-        const sourceItems = source.querySelectorAll(".kanban-item");
-
-        console.log(
-          "target.closest(.kanban-board)",
-          target.closest(".kanban-board")
-        );
+        this.updateItemPosition(target, source);
       },
       buttonClick: (el, listId) => {
         Turbo.visit(`/lists/${listId}/items/new`);

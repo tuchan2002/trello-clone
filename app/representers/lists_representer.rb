@@ -9,7 +9,7 @@ class ListsRepresenter
         id: list.id,
         title: list.title,
         position: list.position,
-        item: list.items
+        item: list.items.order(position: :asc)
       }
     end
   end

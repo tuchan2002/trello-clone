@@ -11,7 +11,7 @@ class Api::ListPositionsController < ApplicationController
       list.position = index
     end
 
-    List.import lists,  on_duplicate_key_update: [:position]
+    List.import lists, on_duplicate_key_update: [:position]
 
     render json: ListsRepresenter.new(lists).as_json
   end
