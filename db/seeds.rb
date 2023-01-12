@@ -19,7 +19,7 @@ Board.find_each do |board|
 
   board.lists.each do |list|
     5.times do |i| 
-      Item.create(list: list, title: "Item #{i + 1}")
+      Item.create(list: list, title: "Item #{i + 1}", description: "Description for Item #{i + 1}")
     end
   end
 end

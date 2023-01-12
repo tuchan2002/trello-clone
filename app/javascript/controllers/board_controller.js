@@ -78,6 +78,31 @@ export default class extends Controller {
       });
   }
 
+  openItemModal() {
+    document.querySelector("#modal-wrapper").classList.remove("hidden");
+  }
+
+  generateItemInfomation(el) {
+    axios.get(`/api/items/${el.dataset.eid}`).then((response) => {
+      document.querySelector("#item-title").textContent = response.data.title;
+      document.querySelector("#item-description").textContent =
+        response.data.description;
+      document.querySelector(
+        "#item-edit-link"
+      ).href = `/lists/${response.data.list_id}/items/${el.dataset.eid}/edit`;
+      document
+        .querySelector("#item-delete-link")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          axios
+            .delete(`/lists/${response.data.list_id}/items/${el.dataset.eid}`)
+            .then((response) => {
+              Turbo.visit(window.location.href);
+            });
+        });
+    });
+  }
+
   buildKanban(boards) {
     new jKanban({
       element: `#${this.element.id}`,
@@ -85,8 +110,9 @@ export default class extends Controller {
       itemAddOptions: {
         enabled: true,
       },
-      click: (e) => {
-        document.querySelector("#modal-wrapper").classList.remove("hidden");
+      click: (el) => {
+        this.openItemModal();
+        this.generateItemInfomation(el);
       },
       dropEl: (el, target, source, sibling) => {
         this.updateItemPosition(target, source);
@@ -103,11 +129,11 @@ export default class extends Controller {
   }
 
   getHeaderTitles() {
-    return document.querySelectorAll(".kanban-title-board");
+    return [...document.querySelectorAll(".kanban-title-board")];
   }
 
   getHeaders() {
-    return document.querySelectorAll(".kanban-board-header");
+    return [...document.querySelectorAll(".kanban-board-header")];
   }
 
   cursorifyHeaderTitles() {
@@ -133,9 +159,10 @@ export default class extends Controller {
       "btn",
       "btn-default",
       "btn-xs",
-      "mr-4"
+      "mr-4",
+      "font-bold"
     );
-    button.textContent = "x";
+    button.innerHTML = "&#x2715";
     button.addEventListener("click", (e) => {
       e.preventDefault();
 
@@ -150,7 +177,7 @@ export default class extends Controller {
 
   addHeaderDeleteButtons(boards) {
     this.getHeaders().forEach((header, index) => {
-      header.appendChild(this.buildBoardDeleteButton(boards[index].id));
+      header.appendChild(this.buildBoardDeleteButton(boards[index]?.id));
     });
   }
 }
