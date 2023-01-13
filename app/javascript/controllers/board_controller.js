@@ -106,7 +106,7 @@ export default class extends Controller {
       ).href = `/items/${el.dataset.eid}/item_members/new`;
 
       const memberLisData = response.data.members
-        .map((member) => `<li>${member.email}</li>`)
+        .map((member) => `<li class="mb-1">${member.email}</li>`)
         .join("");
       document.querySelector("#item-members-list").innerHTML = memberLisData;
     });
