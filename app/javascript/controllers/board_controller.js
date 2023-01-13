@@ -84,6 +84,7 @@ export default class extends Controller {
 
   generateItemInfomation(el) {
     axios.get(`/api/items/${el.dataset.eid}`).then((response) => {
+      console.log("RESPONSE ITEM", response);
       document.querySelector("#item-title").textContent = response.data.title;
       document.querySelector("#item-description").textContent =
         response.data.description;
@@ -100,6 +101,14 @@ export default class extends Controller {
               Turbo.visit(window.location.href);
             });
         });
+      document.querySelector(
+        "#item-assign-member-link"
+      ).href = `/items/${el.dataset.eid}/item_members/new`;
+
+      const memberLisData = response.data.members
+        .map((member) => `<li>${member.email}</li>`)
+        .join("");
+      document.querySelector("#item-members-list").innerHTML = memberLisData;
     });
   }
 

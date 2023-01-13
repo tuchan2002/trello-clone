@@ -8,6 +8,10 @@
 
 user = User.create(email: "tran.anh.tu@sun-asterisk.com", password: "123456")
 
+10.times do |i| 
+  User.create(email: "tuchan#{i}@sun-asterisk.com", password: "123456")
+end
+
 5.times do |i| 
   Board.create(user: user, name: "Board  #{i + 1}")
 end

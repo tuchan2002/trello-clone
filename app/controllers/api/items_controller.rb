@@ -4,7 +4,7 @@ class Api::ItemsController < ApplicationController
   def show
     item = Item.find(params[:id])
 
-    render json: item
+    render json: ItemRepresenter.new(item).as_json
   end
   
 end

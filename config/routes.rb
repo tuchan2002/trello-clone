@@ -9,10 +9,15 @@ Rails.application.routes.draw do
 
   resources :boards do
     resources :lists
+    resources :board_users
   end
 
   resources :lists do
     resources :items
+  end
+
+  resources :items do
+    resources :item_members
   end
 
   namespace :api do

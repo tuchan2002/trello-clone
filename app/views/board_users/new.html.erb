@@ -1,0 +1,29 @@
+<%= form_with url: board_board_users_path(@board), local: true do |f| %>
+  <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
+    <div class=" bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
+      <h1 class="text-center text-2xl font-bold mb-10">Board Member List</h1>
+
+      <div class="space-y-4">
+        <fieldset class="mb-5">
+          <legend class="text-lg font-bold mb-3">Members</legend>
+
+          <% User.find_each do |user| %>
+            <div class="flex justify-between mb-4">
+              <%= f.label :user_ids, class: "text-sm text-gray-900" do %>
+                <%= user.email %>
+              <% end %>
+              <%= f.check_box :user_ids, { class: "bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded", multiple: true, checked: @board.members.include?(user), disabled: @board.user == user }, user.id %>
+            </div>
+          <% end %> 
+        
+        </fieldset>
+
+          <div class="flex items-center justify-end gap-5">
+            <%= link_to "Cancel", root_path, class: "custom-link" %>
+            <%= f.submit "Assign Members", class: "bg-purple-500 text-white py-2 px-4 rounded-md hover:bg-purple-600 cursor-pointer" %>
+          </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+  
